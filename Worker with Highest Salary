@@ -1,0 +1,4 @@
+select T.worker_title 
+from title T, worker W
+where worker_id=worker_ref_id and
+W.salary=(select max(salary) from worker);
