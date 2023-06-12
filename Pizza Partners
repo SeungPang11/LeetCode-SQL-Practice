@@ -1,0 +1,5 @@
+select P.name, avg(O.id)
+from postmates_orders O inner join postmates_partners P
+    on O.seller_id=P.id, postmates_markets M
+where P.name like '%Pizza%' and M.name="Boston"
+order by P.name;
