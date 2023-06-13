@@ -1,0 +1,9 @@
+with cte as (select candidate, sum(point) as total
+from
+(select voter, candidate, round(1/count(candidate) over(partition by voter),3) as point
+from voting_results) t
+group by candidate)
+
+select candidate
+from cte 
+where total = (select max(total) from cte);
