@@ -1,0 +1,31 @@
+strs = ["eat","tea","tan","ate","nat","bat"]
+
+#O(n^2))
+sorted_strs = [''.join(sorted(s, key=lambda x: x.lower())) for s in strs]
+res=[]
+for i in range(len(sorted_strs)):
+    r=[]
+    r.append(strs[i])
+
+    for j in range(len(sorted_strs)):
+        if sorted_strs[i]==sorted_strs[j] and i!=j:
+            r.append(strs[j])
+
+    r = sorted(r)
+
+    if r not in res:
+        res.append(r)
+
+print(res)
+
+#O(m * nlogn))
+strs_table={}
+for string in strs:
+    sorted_string = ''.join(sorted(string))
+
+    if sorted_string not in strs_table:
+        strs_table[sorted_string] = []
+
+    strs_table[sorted_string].append(string)
+
+print(list(strs_table.values()))
