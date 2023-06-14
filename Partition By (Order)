@@ -1,0 +1,14 @@
+https://www.sqlshack.com/sql-partition-by-clause-overview/
+
+WITH CTE AS (
+SELECT curtomername, city,
+	ROW_NUMBER() OVER (PARTITION BY city ORDER BY orderamount DESC) AS rownum,
+    orderamount,
+	AVG(orderamount) OVER (PARTITION BY city) AS AvgORDERAMT,
+    MIN(orderamount) OVER (PARTITION BY city) AS MinORDERAMT,
+    SUM(orderamount) OVER (PARTITION BY city) AS SumORDERAMT
+FROM SQLPractice.Orders)
+
+SELECT curtomername, city, orderamount, rownum
+FROM CTE
+WHERE rownum=1;
