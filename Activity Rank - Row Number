@@ -1,3 +1,5 @@
+https://www.sqlservertutorial.net/sql-server-window-functions/sql-server-row_number-function/
+
 SELECT from_user, COUNT(*) as total_emails, 
     ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC, from_user ASC) row_num
 FROM google_gmail_emails
