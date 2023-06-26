@@ -1,0 +1,15 @@
+WITH cte1 AS(
+    SELECT id, title, budget, DATEDIFF(end_date, start_date) as days
+    FROM linkedin_projects),
+    
+    cte2 AS(
+    SELECT id, (salary/365) as prorated_salary
+    FROM linkedin_employees)
+
+
+SELECT P.title, P.budget, CEILING(SUM(E.prorated_salary) * P.days) 
+    as prorated_total_emp_expense
+FROM cte1 P, linkedin_emp_projects EP, cte2 E 
+WHERE P.id = EP.project_id AND E.id = EP.emp_id
+GROUP BY P.title, P.budget
+HAVING prorated_total_emp_expense > P.budget;
