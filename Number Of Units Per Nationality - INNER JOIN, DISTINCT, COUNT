@@ -1,0 +1,5 @@
+SELECT H.nationality, count(distinct unit_id) as num_apt
+FROM airbnb_hosts H inner join airbnb_units U on H.host_id = U.host_id
+WHERE H.age < 30 and U.unit_type = 'apartment'
+GROUP BY H.nationality
+ORDER BY num_apt DESC;
