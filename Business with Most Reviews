@@ -1,0 +1,4 @@
+SELECT name, sum(review_count) as review_c
+FROM yelp_business
+GROUP BY business_id 
+ORDER BY review_c DESC LIMIT 5;
