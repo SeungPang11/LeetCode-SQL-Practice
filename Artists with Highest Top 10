@@ -1,0 +1,5 @@
+SELECT artist, count(position) as top
+FROM spotify_worldwide_daily_song_ranking
+WHERE position <= 10
+GROUP BY artist
+ORDER BY top DESC LIMIT 1;
