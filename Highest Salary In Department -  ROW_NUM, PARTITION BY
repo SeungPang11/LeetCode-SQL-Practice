@@ -1,0 +1,8 @@
+WITH cte AS (
+SELECT id, first_name, department, salary,
+ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS rownum 
+FROM employee)
+
+SELECT department, first_name, salary 
+FROM cte 
+WHERE rownum = 1
