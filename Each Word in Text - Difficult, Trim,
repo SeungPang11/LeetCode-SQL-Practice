@@ -1,0 +1,11 @@
+WITH recursive num AS (
+SELECT 1 AS n
+UNION ALL SELECT n+1 FROM num WHERE n<=300)
+
+SELECT trim(TRAILING ',' 
+  FROM trim(TRAILING '.' 
+    FROM substring_index(substring_index(
+  contents,' ',n),' ',-1))) word,count(*) nentry
+FROM google_file_store g JOIN num ON n<=length(contents)-length(REPLACE(contents,' ','')) + 1
+WHERE filename LIKE 'draft%' 
+GROUP BY word
