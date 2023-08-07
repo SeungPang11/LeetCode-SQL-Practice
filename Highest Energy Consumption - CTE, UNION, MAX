@@ -1,0 +1,11 @@
+WITH cte AS (
+SELECT date, SUM(consumption) AS consumption FROM 
+(SELECT * FROM fb_eu_energy AS EU
+UNION 
+SELECT date, consumption FROM fb_asia_energy AS A
+UNION 
+SELECT date, consumption FROM fb_na_energy AS NA) AS df
+GROUP BY date)
+
+SELECT* FROM cte
+WHERE consumption = (SELECT max(consumption) FROM cte)
