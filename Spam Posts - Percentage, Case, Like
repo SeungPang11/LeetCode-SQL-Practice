@@ -1,0 +1,6 @@
+SELECT S.post_date, SUM(S.spam)/ COUNT(S.spam) *100 
+FROM
+(SELECT *, CASE WHEN post_keywords LIKE '%spam%' THEN 1 ELSE 0 END AS spam
+FROM facebook_posts) S 
+JOIN facebook_post_views V ON S.post_id = V.post_id
+GROUP BY S.post_date
