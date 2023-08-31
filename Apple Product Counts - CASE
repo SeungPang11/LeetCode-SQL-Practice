@@ -1,0 +1,9 @@
+SELECT U.language, 
+    COUNT(DISTINCT 
+        CASE 
+        WHEN E.device IN ('macbook pro','iphone 5s','ipad air') THEN E.user_id 
+        ELSE NULL END) AS apple,
+    COUNT(DISTINCT E.user_id) AS total
+FROM playbook_users U JOIN playbook_events E ON U.user_id=E.user_id
+GROUP BY U.language
+ORDER BY total DESC;
