@@ -1,5 +1,4 @@
 WITH S AS (SELECT * FROM fb_friend_requests WHERE action = 'sent'),
-    
     A AS (SELECT * FROM fb_friend_requests WHERE action = 'accepted')
 
 SELECT S.date, count(A.user_id_receiver)/ count(S.user_id_sender)
