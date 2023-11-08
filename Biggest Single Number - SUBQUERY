@@ -1,0 +1,3 @@
+SELECT MAX(num) as num
+FROM (SELECT num, count(num) AS cnt 
+FROM MyNumbers GROUP BY num HAVING cnt=1) AS unique_num
