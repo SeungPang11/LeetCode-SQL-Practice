@@ -1,0 +1,7 @@
+SELECT D.name AS department_name, SUM(COALESCE(E.amount,0)) AS total_expense, 
+ROUND(AVG(SUM(COALESCE(E.amount,0))) OVER(),2) AS average_expense
+FROM departments D LEFT JOIN 
+    (SELECT * FROM expenses WHERE Year(date) = 2022) E 
+    On D.id=E.department_id
+GROUP BY department_name
+ORDER BY total_expense DESC
