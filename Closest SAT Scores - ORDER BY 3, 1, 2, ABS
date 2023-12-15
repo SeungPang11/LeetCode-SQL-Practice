@@ -1,0 +1,5 @@
+SELECT t1.student AS one_student, t2.student AS other_student, 
+ABS(t1.score-t2.score) AS score_diff
+FROM scores t1 join scores t2 ON t1.score < t2.score
+ORDER BY 3, 1, 2
+LIMIT 1
