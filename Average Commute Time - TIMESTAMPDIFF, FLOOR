@@ -1,0 +1,7 @@
+SELECT DISTINCT(R1.commuter_id) AS commuter_id, 
+FLOOR(AVG(TIMESTAMPDIFF(minute, R1.start_dt, R1.end_dt))) AS avg_commuter_time,
+FLOOR(AVG(TIMESTAMPDIFF(minute, R2.start_dt, R2.end_dt))) AS avg_time
+FROM rides R1, rides R2
+WHERE R1.city = "NY" AND R2.city = "NY"
+GROUP BY R1.commuter_id
+ORDER BY R1.commuter_id ASC
