@@ -1,0 +1,8 @@
+SELECT E.employee_title AS title, E.sex AS gender, 
+AVG(E.salary+B.bonus) AS avg_total_comp
+FROM sf_employee E JOIN 
+    (SELECT worker_ref_id, SUM(bonus) AS bonus
+    FROM sf_bonus B 
+    GROUP BY worker_ref_id) AS B
+ON E.id=B.worker_ref_id
+GROUP BY 1,2;
