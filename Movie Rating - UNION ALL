@@ -1,0 +1,36 @@
+# Solution 1
+(SELECT U.name AS results
+FROM Users U JOIN 
+    (SELECT user_id, SUM(rating) AS total_rating 
+    FROM MovieRating
+    GROUP BY user_id) R
+WHERE U.user_id = R.user_id
+ORDER BY U.name ASC, R.total_rating DESC LIMIT 1)
+
+UNION ALL 
+
+(SELECT M.title
+FROM Movies M JOIN
+    (SELECT movie_id, AVG(rating) AS avg_rating
+    FROM MovieRating
+    WHERE YEAR(created_at) = 2020 AND MONTH(created_at) = 2
+    GROUP BY movie_id) R
+WHERE M.movie_id = R.movie_id
+ORDER BY R.avg_rating DESC LIMIT 1)
+
+
+# Solution 2 - Optimized
+(SELECT name AS results
+FROM MovieRating JOIN Users USING(user_id)
+GROUP BY name
+ORDER BY COUNT(*) DESC, name
+LIMIT 1)
+
+UNION ALL
+
+(SELECT title AS results
+FROM MovieRating JOIN Movies USING(movie_id)
+WHERE EXTRACT(YEAR_MONTH FROM created_at) = 202002
+GROUP BY title
+ORDER BY AVG(rating) DESC, title
+LIMIT 1);
